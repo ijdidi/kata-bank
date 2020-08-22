@@ -2,6 +2,7 @@ package feature;
 
 import com.imen.bank.kata.Account;
 import com.imen.bank.kata.MyConsole;
+import com.imen.bank.kata.StatementPrinter;
 import com.imen.bank.kata.TransactionRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +23,8 @@ public class PrintStatementFeature {
     @Before
     public void initialise(){
          TransactionRepository transactionRepository = new TransactionRepository();
-        account = new Account(transactionRepository);
+        StatementPrinter statementPrinter = new StatementPrinter();
+        account = new Account(transactionRepository, statementPrinter);
     }
 
     @Test
