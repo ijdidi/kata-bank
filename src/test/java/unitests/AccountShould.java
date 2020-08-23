@@ -16,33 +16,40 @@ import java.util.List;
 import static java.util.Arrays.asList;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
+
 @RunWith(MockitoJUnitRunner.class)
 public class AccountShould {
 
     @Mock
     TransactionRepository transactionRepository;
     private Account account;
-    @Mock StatementPrinter statementPrinter;
+    @Mock
+    StatementPrinter statementPrinter;
 
     @Before
-    public void initialise(){
-        account = new Account(transactionRepository,statementPrinter);
+    public void initialise() {
+        account = new Account(transactionRepository, statementPrinter);
     }
 
-    @Test public void store_a_deposit_transaction(){
+    @Test
+    public void store_a_deposit_transaction() {
 
         account.deposit(100);
         verify(transactionRepository).addDeposit(100);
 
     }
-    @Test public void store_a_withdrawal_transaction(){
+
+    @Test
+    public void store_a_withdrawal_transaction() {
 
         account.withdraw(100);
         verify(transactionRepository).addWithdrawal(100);
 
     }
-    @Test public void print_a_statement(){
-        List<Transaction> transactions = asList(new Transaction());
+
+    @Test
+    public void print_a_statement() {
+        List<Transaction> transactions = asList(new Transaction("23/08/2020", 100));
         given(transactionRepository.allTransactions()).willReturn(transactions);
         account.printStatement();
         verify(statementPrinter).print(transactions);
